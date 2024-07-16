@@ -36,6 +36,25 @@ def isMatched(exp):
                 return False
     return s.is_empty
 
+def isMatchedHTML(raw):
+    s = ArrayStack()
+    j = raw.find('<')
+    while j !=-1:
+        k = raw.find('>', j+1)
+        if k == -1:
+            return False
+        tag = raw[j+1:k]
+        if not tag.startswith('/'):
+            s.push(tag)
+        else:
+            if s.is_empty:
+                return False
+            if tag[1:] != s.pop():
+                return False
+        j = raw.find('<', k+1)
+    return s.is_empty        
+
 izraz = '(11-2+3+(2*2))'
 print(isMatched(izraz))
+print(isMatchedHTML('<p><b>hello</b><p>'))
     
