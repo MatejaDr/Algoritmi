@@ -41,6 +41,9 @@ class ArrayQueue:
             walk = (walk + 1) % len(old)
         self._front = 0
 
+    def is_full(self):
+        return self._size == len(self._data)
+
 
 def basicFunctions():
     q = ArrayQueue()
