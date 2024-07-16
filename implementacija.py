@@ -54,7 +54,50 @@ def isMatchedHTML(raw):
         j = raw.find('<', k+1)
     return s.is_empty        
 
-izraz = '(11-2+3+(2*2))'
-print(isMatched(izraz))
-print(isMatchedHTML('<p><b>hello</b><p>'))
+class FullStackException(Exception):
+    pass
+
+class LimitedStack:
+    def __init__(self, capacity):
+        self.data = []
+        self.capacity = capacity
+    
+    def __len__(self):
+        return len(self.data)
+    
+    @property
+    def is_empty(self):
+        return len(self.data) == 0
+    
+    def is_full(self):
+        return len(self.data) >= self.capacity
+
+    def push(self, e):
+        if self.is_full:
+            raise FullStackException("Stack je pun.")
+        self.data.append(e)
+
+
+    def top(self):
+        if self.is_empty:
+            raise Exception("Stack is empty")
+        return self.data[-1]
+    
+    def pop(self):
+        if self.is_empty:
+            raise Exception("Stack is empty")
+        return self.data.pop()
+       
+try:
+    s = LimitedStack(3)
+    s.push(1)
+    s.push(2)
+    s.push(3)
+    s.push(4) # Nakon ovoga baca izuzetak jer probija datu velicinu
+except FullStackException as e:
+    print(e)
+
+
+
+
     
