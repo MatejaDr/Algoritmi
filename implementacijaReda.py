@@ -40,3 +40,18 @@ class ArrayQueue:
             self._data[k] = old[walk]
             walk = (walk + 1) % len(old)
         self._front = 0
+
+
+def basicFunctions():
+    q = ArrayQueue()
+    q.enqueue(1)
+    q.enqueue(2)
+    q.enqueue(3)
+    q.enqueue(4)
+    q.enqueue(5)
+    print(q.first())
+    q.dequeue()
+    print(q.first())
+    print(q.is_empty())
+    q.resize(10)
+    print(q.first())
