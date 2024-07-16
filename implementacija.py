@@ -22,7 +22,7 @@ class ArrayStack:
             raise Exception("Stack is empty")
         return self.data.pop()
     
-def isMatched(exp):
+def isMatched(exp): # Funkcija za proveru uparivanja obicnih zagrada
     lefty = '({['
     righty = ')}]'
     s = ArrayStack()
@@ -36,7 +36,7 @@ def isMatched(exp):
                 return False
     return s.is_empty
 
-def isMatchedHTML(raw):
+def isMatchedHTML(raw): # Funkcija za proveru uparivanja HTML zagrada
     s = ArrayStack()
     j = raw.find('<')
     while j !=-1:
@@ -54,10 +54,10 @@ def isMatchedHTML(raw):
         j = raw.find('<', k+1)
     return s.is_empty        
 
-class FullStackException(Exception):
+class FullStackException(Exception): 
     pass
 
-class LimitedStack:
+class LimitedStack: # Klasa Stack sa ogranicenjem, gde se pri definisanju stacka moze dodeliti velicina
     def __init__(self, capacity):
         self.data = []
         self.capacity = capacity
@@ -88,26 +88,36 @@ class LimitedStack:
             raise Exception("Stack is empty")
         return self.data.pop()
 
-def dodajStringUStek(stack, string):
+def dodajStringUStek(stack, string): # Funkcija koja dodaje karaktere datog stringa u stack
     try:
         for i in string:
             stack.push(i)
     except FullStackException as e:
         print(e)
 
-rec = "Ana voli milovana"
-s = ArrayStack()
-n = []
-provera = ""
-dodajStringUStek(s, rec)
-while not s.is_empty:
-    n.append(s.pop())
-provera = ''.join(n)
-if provera.replace(" ", "").lower() == rec.replace(" ", "").lower():
-    print("Data rec je palindrom")
-else:
-    print("Data rec nije palindrom")
+def isPalindrome(string): # Funkcija proverava da li je dati string palindrom, koristeci stack
+    s = ArrayStack()
+    n = []
+    dodajStringUStek(s, string)
+    while not s.is_empty:
+        n.append(s.pop())
+    provera = ''.join(n)
+    nova_provera = provera.replace(" ", "").replace(",", "").lower()
+    nova_rec = string.replace(" ", "").replace(",", "").lower()
+    if nova_provera == nova_rec:
+        print("Data rec je palindrom")
+    else:
+        print("Data rec nije palindrom")
+
+def obrniString(string):
+    s = ArrayStack()
+    dodajStringUStek(s, string)
+    while not s.is_empty:
+        print(s.pop())
+
+rec = "A man, a plan, a canal, Panama"
+isPalindrome(rec)
+obrniString(rec)
 
 
 
-    
