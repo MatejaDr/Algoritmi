@@ -115,9 +115,58 @@ def obrniString(string):
     while not s.is_empty:
         print(s.pop())
 
-rec = "A man, a plan, a canal, Panama"
-isPalindrome(rec)
-obrniString(rec)
 
+
+class UndoRedoStack:
+    def __init__(self):
+        self.undo_stack = []
+        self.redo_stack = []
+    
+    def do(self, action):
+        self.undo_stack.append(action)
+        self.redo_stack = []
+
+    def undo(self):
+        if not self.undo_stack:
+            return "Nema akcija za ponistavanje"
+        action = self.undo_stack.pop()
+        self.redo_stack.append(action)
+        return f"Ponistena akcija: {action}"
+    
+    def redo(self):
+        if not self.redo_stack:
+            return "Nema akcija za ponovljivanje"
+        action = self.redo_stack.pop()
+        self.undo_stack.append(action)
+        return f"Ponovljena akcija: {action}"
+    
+    def getUndoStack(self):
+        return list(self.undo_stack)
+    
+    def getRedoStack(self):
+        return list(self.redo_stack)
+    
+def main():
+    undoRedo = UndoRedoStack()
+    print("Unesite tekst ili komandu (undo, redo, exit):")
+    while True:
+        komanda = input("> ").strip()
+
+        if komanda.lower == "exit":
+            break
+        elif komanda.lower() == "undo":
+            result = undoRedo.undo()
+            print(result)
+        elif komanda.lower() == "redo":
+            result = undoRedo.redo()
+            print(result)
+        else:
+            undoRedo.do(komanda)
+            print(f"Uneta akcija: {komanda}")
+
+        print("Undo stack: ", undoRedo.getUndoStack())
+        print("Redo stack: ", undoRedo.getRedoStack())
+
+main()
 
 
