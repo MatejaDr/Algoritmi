@@ -95,12 +95,18 @@ def dodajStringUStek(stack, string):
     except FullStackException as e:
         print(e)
 
-rec = "Pera Peric"
+rec = "Ana voli milovana"
 s = ArrayStack()
+n = []
+provera = ""
 dodajStringUStek(s, rec)
 while not s.is_empty:
-    print(s.pop())
-
+    n.append(s.pop())
+provera = ''.join(n)
+if provera.replace(" ", "").lower() == rec.replace(" ", "").lower():
+    print("Data rec je palindrom")
+else:
+    print("Data rec nije palindrom")
 
 
 
