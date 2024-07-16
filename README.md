@@ -1,2 +1,2 @@
 # Algoritmi
-Ovde se dodaju zadaci iz algoritama
+Implementacija.py sadrzi resene zadatke vezane za Stack Data Structure
