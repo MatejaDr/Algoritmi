@@ -87,15 +87,19 @@ class LimitedStack:
         if self.is_empty:
             raise Exception("Stack is empty")
         return self.data.pop()
-       
-try:
-    s = LimitedStack(3)
-    s.push(1)
-    s.push(2)
-    s.push(3)
-    s.push(4) # Nakon ovoga baca izuzetak jer probija datu velicinu
-except FullStackException as e:
-    print(e)
+
+def dodajStringUStek(stack, string):
+    try:
+        for i in string:
+            stack.push(i)
+    except FullStackException as e:
+        print(e)
+
+rec = "Pera Peric"
+s = ArrayStack()
+dodajStringUStek(s, rec)
+while not s.is_empty:
+    print(s.pop())
 
 
 
