@@ -1,0 +1,108 @@
+class Node:
+    def __init__(self, value, next):
+        self._value = value
+        self._next = next
+
+
+class SingleList:
+    def __init__(self):
+        self._head = None
+        self._tail = None
+        self._size = 0
+
+    def __len__(self):
+        return self._size
+    
+    def is_Empty(self):
+        return self._size == 0
+    
+    def __iter__(self):
+        current_node = self._head
+        while current_node:
+            yield current_node
+            current_node = current_node.next
+
+    def get_first(self):
+        if self.is_Empty():
+            raise Exception("List is Empty")
+        return self._head
+    
+    def get_last(self):
+        if self.is_Empty():
+            raise Exception("List is Empty")
+        return self._tail
+    
+    def add_first(self, value):
+        new_node = Node(value)
+        if self.is_Empty():
+            self._head = new_node
+        else:
+            new_node._next = self._head
+        self._head = new_node
+        self._size += 1
+
+    def add_last(self, value):
+        new_node = Node(value)
+        if self.is_Empty():
+            self._head = new_node
+        else:
+            self._tail.next = new_node
+        self._tail = new_node
+        self._size += 1
+
+    def remove_first(self):
+        if self.is_Empty():
+            raise Exception("List is Empty")
+        if self._size == 1:
+            self._head = None
+        self._head = self._head._next
+        self._size -= 1
+
+    def remove_last(self):
+        if self.is_Empty():
+            raise Exception("List is Empty")
+        if self._size == 1:
+            self._head = None
+        for node in self:
+            if node.next == self._tail:
+                node.next = None
+                self._tail = node
+                break
+        self._size -= 1
+
+    def get_at(self, index):
+        if not 0 <= index <= self._size-1:
+            raise IndexError("Index out of range")
+        counter = 0
+        current_node = self._head
+        while current_node:
+            if counter == index:
+                return current_node
+            current_node = current_node._next
+            counter += 1
+
+    def insert_at(self, index, value):
+        new_node = Node(value)
+        if not 0 <= index <= self._size-1:
+            raise IndexError("Index out of range")
+        if index == 0:
+            self.add_first(value)
+            return
+        previous_node = self.get_at(index-1)
+        new_node._next = previous_node._next
+        previous_node._next = new_node
+        self._size += 1
+    
+    def remove_at(self, index):
+        if not 0 <= index <= self._size-1:
+            raise IndexError("Index out of range")
+        if index == 0:
+            self.remove_first()
+            return
+        if index == self._size-1:
+            self.remove_last()
+            return
+        previous_node = self.get_at(index-1)
+        next_node = previous_node._next
+        previous_node._next = next_node
+        self._size -= 1
