@@ -3,6 +3,17 @@ class Node:
         self._value = value
         self._next = next
 
+    def get_node(self):
+        return self._value
+    
+    def set_node(self, value):
+        self._value = value
+    
+    def __str__(self):
+        return f"Node(data: {self._data})"
+
+
+
 
 class SingleList:
     def __init__(self):
@@ -20,7 +31,16 @@ class SingleList:
         current_node = self._head
         while current_node:
             yield current_node
-            current_node = current_node.next
+            current_node = current_node._next
+
+    def append(self, value):
+        new_node = Node(value, None)
+        if self._head is None:
+            self._head = new_node
+        else:
+            self._tail._next = new_node
+        self._tail = new_node
+        self._size += 1
 
     def get_first(self):
         if self.is_Empty():
@@ -106,3 +126,19 @@ class SingleList:
         next_node = previous_node._next
         previous_node._next = next_node
         self._size -= 1
+
+def find_max_in_list(lista):
+    if lista.is_Empty():
+        raise Exception("List is Empty")
+    max = lista.get_at(0)
+    for i in range(1, lista.__len__()):
+        if lista.get_at(i) > max:
+            max = lista.get_at(i)
+            return max
+
+l = SingleList()
+l.append(1)
+l.append(2)
+l.append(3)
+l.append(4)
+print(find_max_in_list(l))
