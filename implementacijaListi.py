@@ -137,10 +137,30 @@ def find_max_in_list(lista):
         raise Exception("List is Empty")
     return max(lista)
 
+def sum_of_unique_el(lista):
+    if not lista:
+        raise Exception("List is Empty")
+    elem_count = {}
+    for node in lista:
+        value = node.get_node()
+        if value in elem_count:
+            elem_count[value] += 1
+        else:
+            elem_count[value] = 1
+    unique_elem = set()
+    for value, count in elem_count.items():
+        if count == 1:
+            unique_elem.add(value)
+    return sum(unique_elem)
+
 l = SingleList()
-l.append(1)
 l.append(2)
+l.append(-1)
+l.append(3)
 l.append(6)
-l.append(4)
+l.append(1)
+l.append(5)
+l.append(2)
 l.append(5)
 print(find_max_in_list(l))
+print("Suma jedinstvenih brojeva: ", sum_of_unique_el(l))
