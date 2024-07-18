@@ -68,3 +68,5 @@ def stackUsingLists():
     s.pop()
     s.display()
     print("\nTop element is ", s.peek())
+
+stackUsingLists()

@@ -23,7 +23,7 @@ class Queue:
         return self._front == None
     
     def enqueue(self, value):
-        temp = Node(value)
+        temp = Node(value, None)
         if self._rear == None:
             self._front = self._rear = temp
             return
@@ -37,3 +37,15 @@ class Queue:
         self._front = temp._next
         if self._front == None:
             self._rear = None
+
+q = Queue()
+q.enqueue(10)
+q.enqueue(20)
+q.dequeue()
+q.dequeue()
+q.enqueue(30)
+q.enqueue(40)
+q.enqueue(50)
+q.dequeue()
+print("Queue Front : " + str(q._front._value if q._front != None else -1))
+print("Queue Rear : " + str(q._rear._value if q._rear != None else -1))
