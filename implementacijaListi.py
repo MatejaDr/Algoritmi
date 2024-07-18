@@ -10,7 +10,10 @@ class Node:
         self._value = value
     
     def __str__(self):
-        return f"Node(data: {self._data})"
+        return f"Node(data: {self._value})"
+    
+    def __gt__(self, other):
+        return self._value > other._value
 
 
 
@@ -127,18 +130,17 @@ class SingleList:
         previous_node._next = next_node
         self._size -= 1
 
+
+
 def find_max_in_list(lista):
-    if lista.is_Empty():
+    if not lista:
         raise Exception("List is Empty")
-    max = lista.get_at(0)
-    for i in range(1, lista.__len__()):
-        if lista.get_at(i) > max:
-            max = lista.get_at(i)
-            return max
+    return max(lista)
 
 l = SingleList()
 l.append(1)
 l.append(2)
-l.append(3)
+l.append(6)
 l.append(4)
+l.append(5)
 print(find_max_in_list(l))
