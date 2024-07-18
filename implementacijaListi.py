@@ -16,7 +16,46 @@ class Node:
         return self._value > other._value
 
 
+class Stack:
+    def __init__(self):
+        self._head = None
+    
+    def is_empty(self):
+        return self._head == None
+    
+    def push(self, value):
+        if self._head == None:
+            self._head = Node(value, None)
+        else:
+            newnode = Node(value, self._head)
+            newnode._next = self._head
+            self._head = newnode
 
+    def pop(self):
+        if self.is_empty():
+            return None
+        else:
+            value = self._head._value
+            self._head = self._head._next
+            return value
+        
+    def peek(self):
+        if self.is_empty():
+            return None
+        else:
+            return self._head._value
+    
+    def display(self):
+        iternode = self._head
+        if self.is_empty():
+            print("Stack underflow")
+        else:
+            while iternode != None:
+                print(iternode._value, end = "")
+                iternode = iternode._next
+                if iternode != None:
+                    print("->", end = "")
+            return
 
 class SingleList:
     def __init__(self):
@@ -153,14 +192,30 @@ def sum_of_unique_el(lista):
             unique_elem.add(value)
     return sum(unique_elem)
 
-l = SingleList()
-l.append(2)
-l.append(-1)
-l.append(3)
-l.append(6)
-l.append(1)
-l.append(5)
-l.append(2)
-l.append(5)
-print(find_max_in_list(l))
-print("Suma jedinstvenih brojeva: ", sum_of_unique_el(l))
+def listFunctions():
+    l = SingleList()
+    l.append(2)
+    l.append(-1)
+    l.append(3)
+    l.append(6)
+    l.append(1)
+    l.append(5)
+    l.append(2)
+    l.append(5)
+    print(find_max_in_list(l))
+    print("Suma jedinstvenih brojeva: ", sum_of_unique_el(l))
+
+def stackUsingLists():
+    s = Stack()
+    s.push(11)
+    s.push(22)
+    s.push(33)
+    s.push(44)
+    s.display()
+    print("\nTop element is ", s.peek())
+    s.pop()
+    s.pop()
+    s.display()
+    print("\nTop element is ", s.peek())
+
+stackUsingLists()
