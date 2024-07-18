@@ -118,7 +118,7 @@ class SingleList:
     
     def remove_at(self, index):
         if not 0 <= index <= self._size-1:
-            raise IndexError("Index out of range")
+            raise IndexError("Index out of range!")
         if index == 0:
             self.remove_first()
             return
