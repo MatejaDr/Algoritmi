@@ -24,40 +24,54 @@ class BrowserHistory:
     def __init__(self):
         self.forward_stack = Stack()
         self.backward_stack = Stack()
+        self.current = None
 
     def visit(self, url):
-        self.backward_stack.push(url)
+        if self.current:
+            self.backward_stack.push(self.current)
+        self.current = url
         self.forward_stack = Stack()
 
     def back(self):
         if not self.backward_stack.is_empty():
-            url = self.backward_stack.pop()
-            self.forward_stack.push(url)
-            return url
+            self.forward_stack.push(self.current)
+            self.current = self.backward_stack.pop()
+            return self.current
         else:
             return None
     
     def forward(self):
         if not self.forward_stack.is_empty():
-            url = self.forward_stack.pop()
-            self.backward_stack.push(url)
-            return url
+            self.backward_stack.push(self.current)
+            self.current = self.forward_stack.pop()
+            return self.current
         else:
             return None
         
-    def current_url(self):
-        return self.backward_stack.peek()
-    
+    def get_current_url(self):
+       return self.current
+       """""
+       if not self.backward_stack.is_empty():
+           return self.backward_stack.peek()
+       elif not self.forward_stack.is_empty():
+           return self.forward_stack.peek()
+       else:
+           return None
+        """
+
+
 browser = BrowserHistory()
 browser.visit("leetcode.com")
 browser.visit("google.com")
 browser.visit("facebook.com")
-print(browser.current_url())
+print(browser.get_current_url())
 browser.back()
-print(browser.current_url())
+print(browser.get_current_url())
 browser.back()
-print(browser.current_url())
+print(browser.get_current_url())
 browser.forward()
-print(browser.current_url())
+print(browser.get_current_url())
 browser.forward()
-print(browser.current_url())
+print(browser.get_current_url())
+print(browser.forward())
+print(browser.back())
