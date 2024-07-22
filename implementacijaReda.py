@@ -15,21 +15,21 @@ class LimitedArrayQueue:
     
     def first(self):
         if self.is_empty():
-            raise Exception("Queue is empty")
+            raise EmptyQueueException("Queue is empty")
         return self._data[self._front]
     
     def dequeue(self):
         if self.is_empty():
-            raise Exception("Queue is empty")
+            raise EmptyQueueException("Queue is empty")
         answer = self._data[self._front]
         self._data[self._front] = None
         self._front = (self._front + 1) % self._capacity
-        self._size += 1
+        self._size -= 1
         return answer
     
     def enqueue(self, e):
         if self.is_full():
-            raise Exception("Queue is full")
+            raise FullQueueException("Queue is full")
         self._rear = (self._rear + 1) % self._capacity
         self._data[self._rear] = e
         self._size += 1
@@ -81,12 +81,12 @@ class ArrayQueue:
     
     def first(self):
         if self.is_empty():
-            raise Exception("Queue is empty")
+            raise EmptyQueueException("Queue is empty")
         return self._data[self._front]
     
     def dequeue(self):
         if self.is_empty():
-            raise Exception("Queue is empty")
+            raise EmptyQueueException("Queue is empty")
         answer = self._data[self._front]
         self._data[self._front] = None
         self._front = (self._front + 1) % len(self._data)
