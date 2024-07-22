@@ -36,10 +36,15 @@ class Bank:
                 if self.tellers[i] is None:
                     self.tellers[i] = self.queue.dequeue()
                     break
+        else:
+            print("All tellers are busy. Please come back later.")
     
-    def remove_teller(self, teller):
-        if 0 <= teller < self.num_tellers and self.tellers[teller] is not None:
-            self.tellers[teller] = None
+    def remove_teller(self, teller_index):
+        if self.tellers[teller_index] is not None:
+            self.queue.enqueue(self.tellers[teller_index])
+            self.tellers[teller_index] = None
+        else:
+            print("Teller is already empty.")
 
     def serve_customers(self):
         while not self.queue.is_empty():

@@ -137,7 +137,7 @@ class EmptyQueueException(Exception):
 
 
 def basicFunctions():
-    q = LimitedArrayQueue(5)
+    q = LimitedQueue(5)
     q.enqueue(1)
     q.enqueue(2)
     q.enqueue(3)
