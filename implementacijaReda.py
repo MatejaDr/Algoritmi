@@ -1,4 +1,4 @@
-class LimitedArrayQueue:
+class LimitedQueue:
 
     def __init__(self, capacity):
         self._data = [None] * capacity
@@ -66,7 +66,7 @@ class LimitedArrayQueue:
     def __str__(self):
         return f"Queue: {self._data}, front: {self._front}, rear: {self._rear}, size: {self._size}"
 
-class ArrayQueue:
+class Queue:
     def __init__(self):
         self._data = [None] * 10
         self._size = 0
