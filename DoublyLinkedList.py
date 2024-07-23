@@ -37,7 +37,7 @@ class DoublyLinkedList:
         return self._tail._previous
     
     def add_first(self, value):
-        new_node = Node(value, None, None)
+        new_node = Node(value, self._head, self._head._next)
         if self.is_empty():
             self._head._next = new_node
         else:
@@ -48,7 +48,7 @@ class DoublyLinkedList:
         return new_node
     
     def add_last(self, value):
-        new_node = Node(value, None, None)
+        new_node = Node(value, self._head, self._head._next)
         if self.is_empty():
             self._tail._previous = new_node
         else:
@@ -65,7 +65,7 @@ class DoublyLinkedList:
             self._head._next = self._tail
             self._tail._previous = self._head
         else:
-            new_first = self._head._next._next
+            new_first = Node(self._head._next, None, None)._next
             self._head = new_first
         self._size -= 1
         return to_remove
@@ -131,9 +131,9 @@ class DoublyLinkedList:
         if index == 0:
             return self.remove_first()
         previous_node = self.get_at(index-1)
-        to_remove = previous_node._next
-        next_node = previous_node._next
-        previous_node._next = next_node
+        to_remove = Node(previous_node, None, None)._next
+        next_node = Node(previous_node, None, None)._next
+        Node(previous_node, None, None)._next = next_node
         self._size -= 1
         return to_remove
 
