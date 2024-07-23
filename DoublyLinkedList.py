@@ -3,6 +3,9 @@ class Node:
         self._value = value
         self._previous = previous
         self._next = next
+    
+    def get_value(self):
+            return self._value
 
 class DoublyLinkedList:
     def __init__(self):
@@ -18,7 +21,7 @@ class DoublyLinkedList:
         return self._size == 0
     
     def __iter__(self):
-        current_node = self._head._next
+        current_node = self._head
         while current_node != self._tail:
             yield current_node
             current_node = current_node._next
@@ -36,10 +39,10 @@ class DoublyLinkedList:
     def add_first(self, value):
         new_node = Node(value, None, None)
         if self.is_empty():
-            self._head = new_node
+            self._head._next = new_node
         else:
-            new_node._next = self._head
-            self._head._previous = new_node
+            new_node._previous = self._head
+            #self._head._previous = new_node
             self._head = new_node
         self._size += 1
         return new_node
@@ -47,26 +50,23 @@ class DoublyLinkedList:
     def add_last(self, value):
         new_node = Node(value, None, None)
         if self.is_empty():
-            self._head = new_node
-            self._tail = new_node
+            self._tail._previous = new_node
         else:
             new_node._next = self._tail
-            self._tail._next = new_node
-            self._tail = new_node
+            self._tail._previous = new_node
         self._size += 1
         return new_node
     
     def remove_first(self):
         if self.is_empty():
             raise EmptyList("List is empty")
-        to_remove = self._tail._next
+        to_remove = self._head._next
         if self._size == 1:
             self._head._next = self._tail
             self._tail._previous = self._head
         else:
-            new_first = self._head._next
-            new_first._previous = self._head
-            self._head._next = new_first
+            new_first = self._head._next._next
+            self._head = new_first
         self._size -= 1
         return to_remove
     
@@ -79,7 +79,7 @@ class DoublyLinkedList:
             self._head._next = self._tail
         else:
             second_last = self._tail._previous
-            second_last._next = self._tail
+            second_last = self._tail
             self._tail._previous = second_last
         self._size -= 1
         return to_remove
@@ -144,3 +144,39 @@ class EmptyList(Exception):
 
 class IndexError(Exception):
     pass
+
+
+dll = DoublyLinkedList()
+
+dll.add_last(1)
+dll.add_last(2)
+dll.add_last(3)
+dll.add_last(4)
+dll.add_last(5)
+
+print("Original list:")
+for node in dll:
+    print(node._value)
+
+dll.insert_at(2, 10)
+print("\nList after inserting 10 at index 2:")
+for node in dll:
+    print(node._value)
+
+dll.remove_at(3)
+print("\nList after removing element at index 3:")
+for node in dll:
+    print(node._value)
+
+print("\nFirst element:", dll.get_first())
+print("Last element:", dll.get_last())
+
+dll.remove_first()
+print("\nList after removing first element:")
+for node in dll:
+    print(node._value)
+
+dll.remove_last()
+print("\nList after removing last element:")
+for node in dll:
+    print(node._value)
