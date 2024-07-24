@@ -35,6 +35,16 @@ class DoublyLinkedList:
             self.tail.next = new_node
             self.tail = new_node
 
+    def get_first(self):
+        if self.is_empty():
+            raise EmptyList("List is empty")
+        return self.head.next.value
+    
+    def get_last(self):
+        if self.is_empty():
+            raise EmptyList("List is empty")
+        return self.tail.prev.value
+
     def add_first(self, value):
         new_node = Node(value)
         if not self.head:
@@ -123,6 +133,8 @@ def TestCode():
     dll.insert_at(8, 2)
     print(dll.get_element(0))
     dll.display()
+    print(dll.get_first())
+    print(dll.get_last())
     #dll.remove_first()
     #dll.add_last(10)
     #dll.display()
