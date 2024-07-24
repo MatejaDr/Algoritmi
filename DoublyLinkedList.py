@@ -65,7 +65,7 @@ class DoublyLinkedList:
             self._head._next = self._tail
             self._tail._previous = self._head
         else:
-            new_first = Node(self._head._next, None, None)._next
+            new_first = self._head._next._next
             self._head = new_first
         self._size -= 1
         return to_remove
