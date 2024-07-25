@@ -13,6 +13,11 @@ class DoublyLinkedList:
     def __len__(self):
         return self.size
 
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
     def is_empty(self):
         return self.head == None
 
@@ -110,6 +115,38 @@ class DoublyLinkedList:
             self.size -= 1
             return to_remove
 
+    def remove_at(self, index):
+        if self.is_empty():
+            raise EmptyList("List is empty")
+        else:
+            if index == 0:
+                return self.remove_first()
+            elif index == self.size-1:
+                return self.remove_last()
+            else:
+                current = self.head
+                count = 0
+                while current:
+                    if count == index-1:
+                        to_remove = current.next
+                        next_node = current.next.next
+                        current.next = next_node
+                        next_node.prev = current
+                        self.size -= 1
+                        return to_remove.value
+                    count += 1
+                    current = current.next
+
+    def update(self, index, new_value):
+        current = self.head
+        count = 0
+        while current:
+            if count == index:
+                current.value = new_value
+                return
+            count += 1
+            current = current.next
+
     def display(self):
         print("None", end=" <-> ")
         current = self.head
@@ -135,13 +172,11 @@ def TestCode():
     dll.display()
     print(dll.get_first())
     print(dll.get_last())
-    #dll.remove_first()
-    #dll.add_last(10)
-    #dll.display()
-    #dll.remove_last()
-    #dll.display()
-    #print(dll.is_empty())
-    #dll.insert_before(11, 10)
-    #dll.display()
+    dll.remove_at(2)
+    dll.display()
+    dll.update(3, 9)
+    dll.display()
+    dll.clear()
+    dll.display()
 
 TestCode()
