@@ -15,6 +15,12 @@ class DoublyLinkedList:
     def __len__(self):
         return self.size
 
+    def __iter__(self):
+        current = self.head.next
+        while current:
+            yield current.value
+            current = current.next
+
     def clear(self):
         self.head = Node(None)
         self.tail = self.head
@@ -69,6 +75,56 @@ class DoublyLinkedList:
             new_node.prev = self.head
             self.head.next = new_node
         self.size += 1
+
+    def insert_after(self, value, index):
+        if self.is_empty():
+            raise EmptyList("List is empty")
+        elif index < 0 or index >= self.size:
+            raise IndexError("Index out of range")
+        else:
+            new_node = Node(value)
+            current = self.head.next
+            count = 0
+            while current:
+                if count == index:
+                    new_node.next = current.next
+                    if current.next:
+                        current.next.prev = new_node
+                    else:
+                        self.tail.prev = new_node
+                    current.next = new_node
+                    new_node.prev = current
+                    self.size+=1
+                    return
+                count +=1
+                current = current.next
+
+    def insert_before(self, value, index):
+        if self.is_empty():
+            raise EmptyList("List is empty")
+        elif index < 0 or index >= self.size:
+            raise IndexError("Index out of range")
+        else:
+            new_node = Node(value)
+            if index == 0:
+                new_node.next = self.head.next
+                self.head.next.prev = new_node
+                self.head.next = new_node
+                new_node.prev = self.head
+            else:
+                current = self.head.next
+                count = 0
+                while current:
+                    if count == index-1:
+                        new_node.next = current.next
+                        current.next.prev = new_node
+                        current.next = new_node
+                        new_node.prev = current
+                        break
+                    count += 1
+                    current = current.next
+            self.size += 1
+
 
     def insert_at(self, value, index):
         new_node = Node(value)
@@ -161,6 +217,13 @@ class DoublyLinkedList:
             count += 1
             current = current.next
 
+    def display_backward(self):
+        current = self.tail
+        while current:
+            print(current.value, end=" <-> ")
+            current = current.prev
+        print()
+
     def display(self):
         current = self.head
         while current:
@@ -207,6 +270,11 @@ def TestCodeVTWO():
     dll.display()
     dll.append(30)
     dll.display()
+    dll.insert_after(20, 0)
+    dll.display()
+    dll.insert_before(27, 3)
+    dll.display()
+    dll.display_backward()
     
 
-TestCode()
+TestCodeVTWO()
