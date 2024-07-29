@@ -8,6 +8,11 @@ def find_brute_force(t, p):
             return i
     return -1
 
-text = "THIS IS A TEST TEXT"
-pat = "TEST"
-print(find_brute_force(text, pat))
+
+
+def BruteForceMain():
+    text = "THIS IS A TEST TEXT"
+    pat = "TEST"
+    print(find_brute_force(text, pat))
+
+BruteForceMain()
