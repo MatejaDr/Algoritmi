@@ -94,6 +94,19 @@ def insertion_sort(a):
         sorted_a.append(key)
     return sorted_a
 
+def merge_sort(a):
+    pq = SortedPriorityQueue()
+    chunk_size = 2
+    for i in range(0, len(a), chunk_size):
+        chunk = a[i:i+chunk_size]
+        for elem in chunk:
+            pq.add(elem, None)
+    sorted_a = []
+    while not pq.is_empty():
+        key, _ = pq.remove_min()
+        sorted_a.append(key)
+    return sorted_a
+
 #BELOW ARE METHODS FOR RUNNING THE CODE. RUN THE CODE BY CALLING THE APPROPRIATE METHOD
 
 def SortedPQTest():
@@ -135,6 +148,11 @@ def UnsortedPQTest():
 def InsertionTest():
     arr = [5,2,8,3,1,6,4]
     sorted_arr = insertion_sort(arr)
+    print(sorted_arr)
+
+def MergeTest():
+    arr = [8,5,2,1,6,9]
+    sorted_arr = merge_sort(arr)
     print(sorted_arr)
 
 #CALL METHODS BELLOW
