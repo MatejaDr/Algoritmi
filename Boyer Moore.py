@@ -18,11 +18,14 @@ def find_Boyer_Moore(t, p):
             j = last.get(t[i], -1)
             i += m - min(k,j+1)
             k = m - 1
-    return -1
+    return NoMatchException("There is no match.")
+
+class NoMatchException(Exception):
+    pass
 
 def BoyerMooreMain():
-    text = "ABCGEFGHIJKFBCGH"
-    pat = "FBCGH"
-    print(find_Boyer_Moore(text, pat))
+    t = input("Enter the text: ")
+    p = input("Enter the pattern: ")
+    print("Pattern is at index: ", find_Boyer_Moore(t, p))
 
 BoyerMooreMain()

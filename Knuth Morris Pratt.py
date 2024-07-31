@@ -15,7 +15,10 @@ def find_kmp(t,p):
             k = fail[k-1]
         else:
             j += 1
-    return -1
+    return NoMatchException("There is no match.")
+
+class NoMatchException(Exception):
+    pass
 
 def compute_kmp_fail(p):
     m = len(p)
