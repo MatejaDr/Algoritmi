@@ -8,6 +8,9 @@ class PQItem():
     
     def __le__(self, other):
         return self.key <= other.key
+
+    def __str__(self):
+        return f'({self.key}, {self.value})'
     
 class PriorityQueue:
     def __init__(self):
@@ -81,6 +84,18 @@ class SortedPriorityQueue(PriorityQueue):
                 break
         self._data.insert(pos, new_item)
 
+def insertion_sort(a):
+    pq = SortedPriorityQueue()
+    for elem in a:
+        pq.add(elem, None)
+    sorted_a = []
+    while not pq.is_empty():
+        key, _ =pq.remove_min()
+        sorted_a.append(key)
+    return sorted_a
+
+#BELOW ARE METHODS FOR RUNNING THE CODE. RUN THE CODE BY CALLING THE APPROPRIATE METHOD
+
 def SortedPQTest():
     pq = SortedPriorityQueue()
     pq.add(3, "C")
@@ -117,6 +132,11 @@ def UnsortedPQTest():
     print(pq.__str__())
     print("Minimum key value is: ",pq.find_min().value)
 
-SortedPQTest()
+def InsertionTest():
+    arr = [5,2,8,3,1,6,4]
+    sorted_arr = insertion_sort(arr)
+    print(sorted_arr)
+
+#CALL METHODS BELLOW
 
 
