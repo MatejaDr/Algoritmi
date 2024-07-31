@@ -54,24 +54,69 @@ class UnsortedPriorityQueue(PriorityQueue):
         new_item = PQItem(key, value)
         self._data.append(new_item)
 
+class SortedPriorityQueue(PriorityQueue):
+    def __init__(self):
+        super(SortedPriorityQueue, self).__init__()
+    
+    def min(self):
+        if self.is_empty():
+            raise PQError("Queue is empty.")
+        min_item = self._data[0]
+        return (min_item.key, min_item.value)
+    
+    def remove_min(self):
+        if self.is_empty():
+            raise PQError("Queue is empty.")
+        removed = self._data.pop(0)
+        return removed.key, removed.value
+    
+    def add(self, key, value):
+        new_item = PQItem(key, value)
+        last = len(self)-1
+        pos = 0
+        for i in range(last, -1, -1):
+            current_item = self._data[i]
+            if not new_item < current_item:
+                pos = i + 1
+                break
+        self._data.insert(pos, new_item)
+
+def SortedPQTest():
+    pq = SortedPriorityQueue()
+    pq.add(3, "C")
+    pq.add(4, "D")
+    pq.add(5, "E")
+    print(pq.__str__())
+    print("Length: ", pq.__len__())
+    print("Minimum key value is: ",pq.min())
+    pq.remove_min()
+    print(pq.__str__())
+    pq.add(9, "I")
+    print(pq.__str__())
+    pq.add(7, "G")
+    print(pq.__str__())
+    pq.add(1, "A")
+    print(pq.__str__())
+    print("Minimum key value is: ",pq.min())
+
 def UnsortedPQTest():
     pq = UnsortedPriorityQueue()
-    pq.add(3, "This value has key of 3")
-    pq.add(4, "This value has key of 4")
-    pq.add(5, "This value has key of 5")
+    pq.add(3, "C")
+    pq.add(4, "D")
+    pq.add(5, "E")
     print(pq.__str__())
     print("Length: ", pq.__len__())
     print("Minimum key value is: ",pq.find_min().value)
     pq.remove_min()
     print(pq.__str__())
-    pq.add(9, "This value has key of 9")
+    pq.add(9, "I")
     print(pq.__str__())
-    pq.add(7, "This value has key of 7")
+    pq.add(7, "G")
     print(pq.__str__())
-    pq.add(1, "This value has key of 1")
+    pq.add(1, "A")
     print(pq.__str__())
     print("Minimum key value is: ",pq.find_min().value)
 
-UnsortedPQTest()
+SortedPQTest()
 
 
