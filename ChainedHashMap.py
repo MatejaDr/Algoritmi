@@ -158,6 +158,57 @@ class ChainedHashMap(HashMap):
                 for key, value in bucket.items():
                     yield key,value
 
+class LinearHashMap(HashMap):
+    _MARKER = object()
+    def _is_available(self, bucket_index):
+        return self._data[bucket_index] is None or self._data[bucket_index] is self._MARKER
+    
+    def _find_bucket(self, bucket_index, key):
+        available_slot = None
+        while True:
+            if self._is_available(bucket_index):
+                if available_slot is None:
+                    available_slot = bucket_index
+
+                if self._data[bucket_index] is None:
+                    return False, available_slot
+            elif key == self._data[bucket_index].key:
+                return True, bucket_index
+            
+            bucket_index = (bucket_index+1)%len(self._data)
+    
+    def _bucket_setitem(self, bucekt_index, key, value):
+        found, availabe_bucket_index = self._find_bucket(bucekt_index,key)
+        if not found:
+            self._data[availabe_bucket_index] = MapElement(key,value)
+            self._size+=1
+        else:
+            self._data[availabe_bucket_index].value = value
+
+    def _bucket_getitem(self, bucket_index, key):
+        found, available_bucket_index = self._find_bucket(bucket_index, key)
+        if not found:
+            raise KeyError("There is no element with that key.")
+        return self._data[bucket_index].value
+
+    def _bucket_delitem(self, bucket_index, key):
+        found, index = self._find_bucket(bucket_index,key)
+        if not found:
+            raise KeyError("There is no element with that key.")
+        self._data[index] = self._MARKER
+
+    def __iter__(self):
+        total_buckets = len(self._data)
+        for i in range(total_buckets):
+            if not self._is_available(i):
+                yield self._data[i].key
+
+    def items(self):
+        total_buckets = len(self._data)
+        for i in range(total_buckets):
+            if not self._is_available(i):
+                yield self._data[i].key, self._data[i].value
+
 def run_chained_hash_map():
     chm = ChainedHashMap()
     chm.__setitem__(1, "one")
@@ -177,5 +228,36 @@ def run_chained_hash_map():
     print("\nItems in the Chained Hash Map after deletion:")
     for key, value in chm.items():
         print(f"{key}: {value}")
+
+def test_linear_hash_map():
+    hash_map = LinearHashMap()
+
+    hash_map._bucket_setitem(0, "key1", "value1")
+    hash_map._bucket_setitem(1, "key2", "value2")
+    hash_map._bucket_setitem(2, "key3", "value3")
+
+    print("Testing getitem:")
+    print(hash_map._bucket_getitem(0, "key1"))  
+    print(hash_map._bucket_getitem(1, "key2"))  
+    print(hash_map._bucket_getitem(2, "key3"))  
+
+    hash_map._bucket_setitem(0, "key1", "new_value1")
+    print(hash_map._bucket_getitem(0, "key1"))  
+
+    hash_map._bucket_delitem(1, "key2")
+    try:
+        print(hash_map._bucket_getitem(1, "key2"))  
+    except KeyError as e:
+        print(e)  
+
+    print("Testing iteration:")
+    for key in hash_map:
+        print(key)  
+
+    print("Testing items():")
+    for key, value in hash_map.items():
+        print(f"{key}: {value}")  
+
+test_linear_hash_map()
 
 run_chained_hash_map()
