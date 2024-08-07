@@ -21,11 +21,19 @@ class HashMap(object):
         else:
             for pair in self.map[key_hash]:
                 if pair[0] == key:
-                    pair[1] = value
+                    self.handle_collisison(key_hash, key, value)
                     return True
             self.map[key_hash].append(key_value)
             return True
     
+    def handle_collisison(self, key_hash, key, value):
+        for pair in self.map[key_hash]:
+            if pair[0] == key:
+                pair.append(value)
+                return True
+        self.map[key_hash].append([key, value])
+        return True
+
     def insert(self, index, key, value):
         if index < 0 or index >= self.size:
             raise IndexError("Index out of range")
@@ -40,7 +48,7 @@ class HashMap(object):
         if self.map[key_hash] is not None:
             for pair in self.map[key_hash]:
                 if pair[0] == key:
-                    return pair[1]
+                    return pair[1:]
         
 
     def delete(self, key):
@@ -60,6 +68,7 @@ class HashMap(object):
 
 hm = HashMap()
 hm.add('apple', 5)
+hm.add('apple', 11)
 hm.add('banana', 4)
 hm.add('pinapple', 7)
 hm.print()
@@ -70,5 +79,5 @@ print()
 hm.delete('banana')
 hm.print()
 print()
-print("Pronadjen: ", hm.search('pickle'))
+print("Pronadjen: ", hm.search('apple'))
 print(hm.print())
