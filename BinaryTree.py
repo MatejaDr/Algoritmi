@@ -46,3 +46,32 @@ class Node:
     def printTree(self):
         print(self.data)
 
+def run_inOrderTraversal():
+    root = Node(27)
+    root.insert(14)
+    root.insert(35)
+    root.insert(10)
+    root.insert(19)
+    root.insert(31)
+    root.insert(42)
+    print(root.inOrderTraversal(root)) 
+
+def run_preOrderTraversal():
+    root = Node(27)
+    root.insert(14)
+    root.insert(35)
+    root.insert(10)
+    root.insert(19)
+    root.insert(31)
+    root.insert(42)
+    print(root.preOrderTraversal(root))
+
+def run_postOrderTraversal():
+    root = Node(27)
+    root.insert(14)
+    root.insert(35)
+    root.insert(10)
+    root.insert(19)
+    root.insert(31)
+    root.insert(42)
+    print(root.postOrderTraversal(root))
