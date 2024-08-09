@@ -8,5 +8,3 @@ This repository contains:
 6. KAN-21: Priority Queue
 7. KAN-25: Hah Maps
 8. KAN-29: Recursion
-
-Select one of the above for more information.
