@@ -1,12 +1,12 @@
 # Alogirthms and Data Structures
 This repository contains:
-*KAN-4: Stack
-*KAN-8: Queue
-*KAN-12: Lists
-*KAN-13: Text Processing
-*KAN-17: Trees
-*KAN-21: Priority Queue
-*KAN-25: Hah Maps
-*KAN-29: Recursion
+1. KAN-4: Stack
+2. KAN-8: Queue
+3. KAN-12: Lists
+4. KAN-13: Text Processing
+5. KAN-17: Trees
+6. KAN-21: Priority Queue
+7. KAN-25: Hah Maps
+8. KAN-29: Recursion
 
 Select one of the above for more information.
