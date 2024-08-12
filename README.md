@@ -1,2 +1,2 @@
-# Recursion Data Structure
-1. EnglishRuler.py
+# Recursion
+1. EnglishRuler.py - basic implementation of recursion in python
