@@ -75,7 +75,7 @@ def runMerge():
     print(f"Sorted array using Merge Sort: {n}")
     print()
 
-def runQucik():
+def runQuick():
     n = [38, 27, 43, 3, 9, 82, 10]
     quickSort(n)
     print(f"Sorted array using Quick Sort: {n}")
@@ -85,4 +85,4 @@ runFibonacci()
 print()
 runFactorial()
 runMerge()
-runQucik()
+runQuick()
